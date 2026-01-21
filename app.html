@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مصنع جدارة للصناعات المعدنية | Jadara Metal Industries</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.8;
+      color: #333;
+      overflow-x: hidden;
+      background: #E3DFDE; /* خلفية موحدة */
+    }
+
+    /* حتى الروابط # ما تنزل تحت الهيدر */
+    section { scroll-margin-top: 120px; }
+
+    /* =========================
+       Header (Floating + Scroll)
+       ========================= */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 60px);
+      max-width: 1200px;
+      z-index: 1000;
+
+      background: rgba(113, 113, 114, 0.55); /* خفيف فوق الهيرو */
+      backdrop-filter: blur(10px);
+
+      border-radius: 16px;
+      padding: 0.7rem 0;
+
+      box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+      transition: background 250ms ease, box-shadow 250ms ease, top 250ms ease, padding 250ms ease;
+    }
+
+    header.scrolled {
+      background: rgba(113, 113, 114, 0.66); /* أقوى بعد النزول */
+      box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+      top: 12px;
+      padding: 0.55rem 0;
+    }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* عربي: اللوجو يمين، الأزرار وسط، زر اللغة يسار */
+[dir="rtl"] nav {
+  flex-direction: row;
+}
+
+/* إنجليزي: اللوجو يسار، الأزرار وسط، زر اللغة يمين */
+[dir="ltr"] nav {
+  flex-direction: row;
+}
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #f8f8f8;
+      min-width: 0;
+    }
+
+    .truck-icon {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    #company-name {
+      font-size: 1.15rem;
+      font-weight: 650;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 55vw;
+      color: #fff;
+    }
+
+    .lang-switcher {
+      background: #e93933;
+      border: none;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: #ffffff;
+    }
+
+    .lang-switcher:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(233, 57, 51, 0.35);
+    }
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* عربي: الأزرار تتجه من اليمين لليسار */
+[dir="rtl"] .nav-buttons {
+  direction: rtl;
+}
+
+/* إنجليزي: الأزرار تتجه من اليسار لليمين */
+[dir="ltr"] .nav-buttons {
+  direction: ltr;
+}
+
+/* نفس لون زر اللغة */
+.nav-btn {
+  background: #e93933;
+  border: none;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  cursor: pointer;
+
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #ffffff;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: #fa0b03;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(233, 57, 51, 0.35);
+}
+
+
+    /* =========================
+       Hero
+       ========================= */
+    .hero {
+      background: #E3DFDE;
+      padding: 190px 2rem 110px; /* مهم: يخلي مساحة للهيدر العائم */
+      text-align: center;
+      color: #0e0e0e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0 Q300,50 600,40 T1200,20 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.18)"/></svg>') repeat-x;
+      opacity: 0.5;
+      animation: wave 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes wave {
+      0% { background-position: 0 0; }
+      100% { background-position: 1200px 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      margin: 0 auto;
+      animation: fadeInUp 0.9s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-logo {
+      width: 260px;       /* حجم منطقي */
+      max-width: 70%;
+      height: auto;
+      margin-bottom: 1.2rem;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.9rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.18);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.92;
+    }
+
+    .cta-button {
+      background: #e93933;
+      color: white;
+      padding: 1rem 2.3rem;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 800;
+    }
+
+    .cta-button:hover {
+      background: #fa0b03;
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(233, 57, 51, 0.35);
+    }
+
+    /* =========================
+       About
+       ========================= */
+    .about {
+      padding: 80px 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 3rem;
+      color: #1a1a2e;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #e93933, #f82e27);
+      border-radius: 2px;
+    }
+
+    .about-content {
+      background: rgba(218, 217, 217, 0.98);
+      padding: 3rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.10);
+      line-height: 2;
+      font-size: 1.08rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .about-content p { margin-bottom: 1.25rem; text-align: justify; }
+
+    .highlight { color: #e93933; font-weight: 800; }
+
+    /* =========================
+       Services
+       ========================= */
+    .services {
+      padding: 80px 2rem;
+    }
+
+    .services-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.98);
+      padding: 2rem;
+      border-radius: 18px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.10);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.14);
+    }
+
+    .service-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .service-card h3 { color: #1a1a2e; margin-bottom: 1rem; font-size: 1.45rem; }
+    .service-card p { color: #666; line-height: 1.8; }
+
+    /* =========================
+       Footer
+       ========================= */
+    footer {
+      background: #1a1a2e;
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    /* =========================
+   Reveal animation (Flow Up)
+   ========================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms ease, transform 700ms ease;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* احترام إعدادات تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+
+    /* =========================
+       Responsive
+       ========================= */
+    @media (max-width: 768px) {
+      header {
+        top: 10px;
+        width: calc(100% - 26px);
+        border-radius: 14px;
+      }
+      header.scrolled { top: 8px; }
+
+      nav { padding: 0 1rem; }
+
+      .truck-icon { height: 32px; }
+      #company-name { font-size: 1.05rem; max-width: 62vw; }
+
+      .hero { padding-top: 175px; }
+      .hero-logo { width: 190px; }
+
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1.05rem; }
+
+      .section-title { font-size: 2rem; }
+      .about-content { padding: 2rem; }
+    }
+
+    /* English Styles */
+    [dir="ltr"] { font-family: Arial, sans-serif; }
+[dir="ltr"] .about-content p { text-align: left; }
+
+/* محاذاة النصوص حسب الاتجاه */
+[dir="rtl"] .section-title {
+  text-align: center;
+}
+
+[dir="ltr"] .section-title {
+  text-align: center;
+}
+
+[dir="rtl"] footer {
+  text-align: center;
+}
+
+[dir="ltr"] footer {
+  text-align: center;
+}
+
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+<nav>
+  <div class="logo">
+    <img src="images/truck-icon.png" alt="Truck Icon" class="truck-icon" />
+    <span id="company-name">مصنع جدارة للصناعات المعدنية</span>
+  </div>
+
+  <div class="nav-buttons" id="nav-buttons">
+<button class="nav-btn" onclick="goToSection('hero')" id="btn-home">الرئيسية</button>
+    <button class="nav-btn" onclick="goToSection('about')" id="btn-about">من نحن</button>
+    <button class="nav-btn" onclick="goToSection('services')" id="btn-services">الخدمات</button>
+    <button class="nav-btn" onclick="goToSection('contact')" id="btn-contact">تواصل</button>
+  </div>
+
+  <button class="lang-switcher" onclick="toggleLanguage()">
+    <span id="lang-btn">EN</span>
+  </button>
+</nav>
+
+
+  </header>
+
+  <!-- Hero Section -->
+   <section class="hero reveal" id="hero">
+    <div class="hero-content">
+      <img src="images/logo.png" alt="Jadara Metal Industries Logo" class="hero-logo" />
+      <h1 id="hero-title">خبرة تصنع القوة، وجودة تُعتمد</h1>
+      <p id="hero-subtitle">منذ 2016، نقدم حلولاً معدنية متكاملة لقطاعات النقل والمقاولات والخدمات اللوجستية</p>
+      <a href="#services" class="cta-button" id="cta-text">اكتشف منتجاتنا</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+<section class="about reveal" id="about">
+
+    <h2 class="section-title" id="about-title">من نحن</h2>
+    <div class="about-content">
+      <div id="about-text">
+        <p>انطلق <span class="highlight">مصنع جدارة للصناعات المعدنية</span> عام 2016 في الرياض برؤية واضحة: تقديم حلول معدنية موثوقة تلبي احتياجات قطاعات النقل والمقاولات والخدمات اللوجستية بجودة عالية وأسعار تنافسية.</p>
+        <p>مع النمو المستمر والتطور، انتقل المصنع مطلع 2025 إلى موقعه الجديد في <span class="highlight">محافظة رماح</span>، حيث تضاعفت الطاقة الإنتاجية وتطورت تقنيات التصنيع لتلبية متطلبات السوق المتزايدة.</p>
+        <p>نفخر في جدارة بكوننا من المصانع الرائدة في تصنيع القلابات، السطحات، دينات النقل، والتوانك بمختلف أنواعها. نعتمد على كوادر فنية ذات خبرة عالية، ومواد معتمدة من أفضل المصادر، وتقنيات حديثة تضمن المتانة والسلامة.</p>
+        <p>في جدارة، لا نصنع منتجات فقط، بل نبني شراكات طويلة الأمد مع عملائنا، لأننا نؤمن بأن النجاح الحقيقي يقوم على <span class="highlight">الجودة، المصداقية، والثقة المتبادلة</span>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+<section class="services reveal" id="services">
+    <div class="services-container">
+      <h2 class="section-title" id="services-title">منتجاتنا وخدماتنا</h2>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🚛</div>
+          <h3 id="service1-title">القلابات</h3>
+          <p id="service1-desc">تصنيع قلابات بمقاسات وأحجام متعددة للاستخدامات الإنشائية والتعدينية، مع ضمان المتانة والكفاءة التشغيلية العالية.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🚚</div>
+          <h3 id="service2-title">السطحات ودينات النقل</h3>
+          <p id="service2-desc">سطحات بأنواعها المختلفة، ودينات نقل مع تفصيل الهياكل حسب طبيعة الحمولة والاستخدام المطلوب.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🛢️</div>
+          <h3 id="service3-title">التوانك</h3>
+          <p id="service3-desc">توانك مياه، محروقات، صرف صحي، ومواد كيميائية بجميع الأحجام والمواصفات المطلوبة.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">📦</div>
+          <h3 id="service4-title">شواص نقل الحاويات</h3>
+          <p id="service4-desc">تصنيع شواص نقل الحاويات بمقاسات 20 و40 قدم، مع التزام صارم بمعايير السلامة والجودة.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🏗️</div>
+          <h3 id="service5-title">حاملات الخرسانة</h3>
+          <p id="service5-desc">حاملات الخرسانة الجاهزة والهياكل المعدنية الخاصة بالمشاريع الإنشائية الكبرى.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <h3 id="service6-title">هياكل معدنية خاصة</h3>
+          <p id="service6-desc">تصنيع وتعديل الهياكل المعدنية وفق متطلبات العميل، مع دقة في التنفيذ والالتزام بالمواعيد.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content"> 
+      <div class="contact-info">
+        <div class="contact-item"><span>📍</span><span id="location">محافظة رماح، المملكة العربية السعودية</span></div>
+        <div class="contact-item"><span>📧</span><span>info@jadara.com</span></div>
+        <div class="contact-item"><span>📞</span><span>+966 XX XXX XXXX</span></div>
+      </div>
+      <p id="footer-text">© 2025 مصنع جدارة للصناعات المعدنية. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script>
+    let isArabic = true;
+
+    const translations = {
+      ar: {
+        companyName: 'مصنع جدارة للصناعات المعدنية',
+        langBtn: 'EN',
+        heroTitle: 'خبرة تصنع القوة، وجودة تُعتمد',
+        heroSubtitle: 'منذ 2016، نقدم حلولاً معدنية متكاملة لقطاعات النقل والمقاولات والخدمات اللوجستية',
+        ctaText: 'اكتشف منتجاتنا',
+        aboutTitle: 'من نحن',
+        aboutText: `<p>انطلق <span class="highlight">مصنع جدارة للصناعات المعدنية</span> عام 2016 في الرياض برؤية واضحة: تقديم حلول معدنية موثوقة تلبي احتياجات قطاعات النقل والمقاولات والخدمات اللوجستية بجودة عالية وأسعار تنافسية.</p>
+        <p>مع النمو المستمر والتطور، انتقل المصنع مطلع 2025 إلى موقعه الجديد في <span class="highlight">محافظة رماح</span>، حيث تضاعفت الطاقة الإنتاجية وتطورت تقنيات التصنيع لتلبية متطلبات السوق المتزايدة.</p>
+        <p>نفخر في جدارة بكوننا من المصانع الرائدة في تصنيع القلابات، السطحات، دينات النقل، والتوانك بمختلف أنواعها. نعتمد على كوادر فنية ذات خبرة عالية، ومواد معتمدة من أفضل المصادر، وتقنيات حديثة تضمن المتانة والسلامة.</p>
+        <p>في جدارة، لا نصنع منتجات فقط، بل نبني شراكات طويلة الأمد مع عملائنا، لأننا نؤمن بأن النجاح الحقيقي يقوم على <span class="highlight">الجودة، المصداقية، والثقة المتبادلة</span>.</p>`,
+        servicesTitle: 'منتجاتنا وخدماتنا',
+        service1Title: 'القلابات',
+        service1Desc: 'تصنيع قلابات بمقاسات وأحجام متعددة للاستخدامات الإنشائية والتعدينية، مع ضمان المتانة والكفاءة التشغيلية العالية.',
+        service2Title: 'السطحات ودينات النقل',
+        service2Desc: 'سطحات بأنواعها المختلفة، ودينات نقل مع تفصيل الهياكل حسب طبيعة الحمولة والاستخدام المطلوب.',
+        service3Title: 'التوانك',
+        service3Desc: 'توانك مياه، محروقات، صرف صحي، ومواد كيميائية بجميع الأحجام والمواصفات المطلوبة.',
+        service4Title: 'شواص نقل الحاويات',
+        service4Desc: 'تصنيع شواص نقل الحاويات بمقاسات 20 و40 قدم، مع التزام صارم بمعايير السلامة والجودة.',
+        service5Title: 'حاملات الخرسانة',
+        service5Desc: 'حاملات الخرسانة الجاهزة والهياكل المعدنية الخاصة بالمشاريع الإنشائية الكبرى.',
+        service6Title: 'هياكل معدنية خاصة',
+        service6Desc: 'تصنيع وتعديل الهياكل المعدنية وفق متطلبات العميل، مع دقة في التنفيذ والالتزام بالمواعيد.',
+        location: 'محافظة رماح، المملكة العربية السعودية',
+        footerText: '© 2025 مصنع جدارة للصناعات المعدنية. جميع الحقوق محفوظة.'
+      },
+      en: {
+        companyName: 'Jadara Metal Industries Factory',
+        langBtn: 'عربي',
+        heroTitle: 'Experience Creates Strength, Quality You Can Trust',
+        heroSubtitle: 'Since 2016, providing comprehensive metal solutions for transport, contracting, and logistics sectors',
+        ctaText: 'Discover Our Products',
+        aboutTitle: 'About Us',
+        aboutText: `<p><span class="highlight">Jadara Metal Industries Factory</span> was established in 2016 in Riyadh with a clear vision: delivering reliable metal solutions that meet the needs of transport, contracting, and logistics sectors with high quality and competitive prices.</p>
+        <p>With continuous growth and development, the factory moved in early 2025 to its new location in <span class="highlight">Rumah Governorate</span>, where production capacity doubled and manufacturing techniques evolved to meet growing market demands.</p>
+        <p>At Jadara, we pride ourselves on being one of the leading factories in manufacturing tippers, flatbeds, transport bodies, and tanks of all types. We rely on highly experienced technical staff, certified materials from the best sources, and modern techniques that ensure durability and safety.</p>
+        <p>At Jadara, we don't just manufacture products; we build long-term partnerships with our clients because we believe that true success is based on <span class="highlight">quality, credibility, and mutual trust</span>.</p>`,
+        servicesTitle: 'Our Products & Services',
+        service1Title: 'Tippers',
+        service1Desc: 'Manufacturing tippers in various sizes for construction and mining applications, ensuring high durability and operational efficiency.',
+        service2Title: 'Flatbeds & Transport Bodies',
+        service2Desc: 'Various types of flatbeds and transport bodies customized according to load nature and required usage.',
+        service3Title: 'Tanks',
+        service3Desc: 'Water tanks, fuel tanks, sewage tanks, and chemical material tanks in all sizes and required specifications.',
+        service4Title: 'Container Chassis',
+        service4Desc: 'Manufacturing container chassis in 20 and 40-foot sizes, with strict adherence to safety and quality standards.',
+        service5Title: 'Concrete Carriers',
+        service5Desc: 'Ready-mix concrete carriers and metal structures for major construction projects.',
+        service6Title: 'Custom Metal Structures',
+        service6Desc: 'Manufacturing and modifying metal structures according to client requirements, with precision in execution and commitment to deadlines.',
+        location: 'Rumah Governorate, Saudi Arabia',
+        footerText: '© 2025 Jadara Metal Industries Factory. All Rights Reserved.'
+      }
+    };
+
+    function toggleLanguage() {
+      isArabic = !isArabic;
+      const lang = isArabic ? 'ar' : 'en';
+      const dir = isArabic ? 'rtl' : 'ltr';
+
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('dir', dir);
+
+      const t = translations[lang];
+
+      document.getElementById('company-name').textContent = t.companyName;
+      document.getElementById('lang-btn').textContent = t.langBtn;
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+      document.getElementById('cta-text').textContent = t.ctaText;
+      document.getElementById('about-title').textContent = t.aboutTitle;
+      document.getElementById('about-text').innerHTML = t.aboutText;
+      document.getElementById('services-title').textContent = t.servicesTitle;
+      document.getElementById('service1-title').textContent = t.service1Title;
+      document.getElementById('service1-desc').textContent = t.service1Desc;
+      document.getElementById('service2-title').textContent = t.service2Title;
+      document.getElementById('service2-desc').textContent = t.service2Desc;
+      document.getElementById('service3-title').textContent = t.service3Title;
+      document.getElementById('service3-desc').textContent = t.service3Desc;
+      document.getElementById('service4-title').textContent = t.service4Title;
+      document.getElementById('service4-desc').textContent = t.service4Desc;
+      document.getElementById('service5-title').textContent = t.service5Title;
+      document.getElementById('service5-desc').textContent = t.service5Desc;
+      document.getElementById('service6-title').textContent = t.service6Title;
+      document.getElementById('service6-desc').textContent = t.service6Desc;
+      document.getElementById('location').textContent = t.location;
+      document.getElementById('footer-text').textContent = t.footerText;
+    }
+
+    // Header scroll effect (خفيف فوق الهيرو + أقوى بعد النزول)
+    (function () {
+      const header = document.querySelector("header");
+      const threshold = 40;
+
+      function onScroll() {
+        if (window.scrollY > threshold) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+  <script>
+  // Reveal on scroll (تدفق للأعلى)
+  (function () {
+    const items = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target); // مرة واحدة
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    items.forEach((el) => observer.observe(el));
+  })();
+</script>
+<script>
+  function goToSection(id) {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    section.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+</script>
+</body>
+</html>
